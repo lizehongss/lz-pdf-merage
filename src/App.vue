@@ -1,6 +1,6 @@
 <template>
   <div>
-    <pdfView :propData='initData'/>
+    <pdfView :pdfPath='initData'/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import pdfView from './components/pdf-view'
 export default {
     data(){
       return {
-        initData: 'hello world'
+        initData: './test.pdf'
       }
     },
     components:{
