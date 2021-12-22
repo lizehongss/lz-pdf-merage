@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "pdfjs-dist": "^2.10.377",
+    "jspdf": "^2.4.0",
+    "pdfjs-dist": "^2.1.266",
     "vue": "^2.6.11"
   },
   "devDependencies": {
