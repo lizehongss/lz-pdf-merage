@@ -1,6 +1,5 @@
 let allImg = []
 export default async function printPdf(pdfImage, canvasArray){
-    console.log(pdfImage);
     let printWin = await createElement()
     for(let i = 0; i<pdfImage.length; i++) {
         let canvas = document.createElement('canvas')
@@ -48,8 +47,6 @@ async function createElement () {
     @supports ((size:A4) and (size:1pt 1pt)) {
         @page { 
             size: 592.28pt 841.89pt; 
-            margin-top: 0.5cm;
-            margin-bottom: 0.5cm;
         }
     }
     @media print {

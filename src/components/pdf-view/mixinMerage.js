@@ -8,7 +8,7 @@ export default {
     }
   },
   methods: {
-    async getTheMeragePdf(name="pdf合成") {
+    async getTheMeragePdf() {
       const pdf = new jsPDF('p', 'pt', 'a4')
       let pdfImages = await this.getThePdfImages()
       for(let i = 0; i< pdfImages.length; i++) {
@@ -21,7 +21,15 @@ export default {
         }
         if (i < pdfImages.length - 1) pdf.addPage() 
       }
-      pdf.save(name)
+      return pdf
+    },
+    async downLoadPdf(name="pdf合成") {
+      let pdfObj = await this.getTheMeragePdf()
+      pdfObj.save(name)
+    },
+    async pdfToBase64() {
+      let pdfObj = await this.getTheMeragePdf()
+      return pdfObj.output('datauristring')
     },
     async getThePdfImages() {
       let pdfImages = Array(this.total).fill(Infinity)

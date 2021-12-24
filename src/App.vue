@@ -11,7 +11,7 @@
       <button @click="handleDownload">下载合成的pdf</button>
     </div>
     <div class="pdf-view">
-      <pdfView :pdfPath='initData' :pdfHeight="900" ref="pdfView"/>
+      <pdfView :pdfPath='pdfPath' :pdfHeight="900" ref="pdfView"/>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ import pdfView from './components/pdf-view'
 export default {
     data(){
       return {
-        initData: 'http://192.168.37.100:8080/default/20211221/17/17/2/%E5%8F%98%E6%9B%B4%E7%BE%81%E6%8A%BC%E6%9C%9F%E9%99%90%E9%80%9A%E7%9F%A5%E4%B9%A6.pdf'
+        pdfPath: './test.pdf'
       }
     },
     components:{
@@ -33,7 +33,7 @@ export default {
           pos,
           width: 200,
           height: 200,
-          url: 'http://192.168.37.100:8080/default/20211223/09/41/2/渝中区看守所1.png'
+          url: './seal.png'
         })
       },
       handleAddDate(pos, isTransParent) {
@@ -56,7 +56,7 @@ export default {
         this.$refs.pdfView.deleteItem()
       },
       handleDownload() {
-        this.$refs.pdfView.getTheMeragePdf('合成pdf')
+        this.$refs.pdfView.downLoadPdf('合成pdf')
       }
     }
 }
@@ -66,5 +66,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+button{
+  cursor: pointer;
+  margin: 5px;
 }
 </style>
