@@ -1,4 +1,4 @@
-import lzPdfMerage from './src/components/pdf-merage'
+import lzPdfMerage from './src/components/pdf-view'
 if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.component('lz-pdf-mmerage', lzPdfMerage)
   }
