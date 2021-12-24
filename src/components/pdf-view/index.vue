@@ -6,6 +6,7 @@
     </div>
     <div v-if="isPdfError" class="pdf-error">{{errorText}}</div>
     <div class="pdf-body" ref="pdfBody" :style="pdfContent" @mousedown="handleMouseDown"  v-if="!isPdfError && !isPdfLoading">
+      <canvas class="draw-canvas" ref="drawCanvas"></canvas>
       <Page ref="page" :defaultRotate="pageRotate" :page="currentPage" :width="pdfWidth - 25" @saveRotate="saveRotate" @drawFinish="handleFinishDraw"></Page>
     </div>
     <PageTurner class="page-turner" @handleZoom="handleZoom" @print="print" @rotate="rotate" :total="total" :current.sync="current"></PageTurner>
@@ -15,6 +16,8 @@
 import PageTurner from "../page-turner";
 import Page from "./page";
 import Pdfjs from 'pdfjs-dist';
+import mixinMerage from './mixinMerage'
+import printPdf from './printPdf'
 export default {
   props: {
     pdfPath: {
@@ -37,6 +40,7 @@ export default {
       default: '加载PDF失败'
     }
   },
+  mixins: [mixinMerage],
   components: { Page, PageTurner },
   data() {
     return {
@@ -58,9 +62,10 @@ export default {
   },
   watch: {},
   methods: {
-    print() {
+    async print() {
       if (this.total === 0) return 0;
-      // printPdf
+      let pdfImage = await this.getThePdfImages()
+      printPdf(pdfImage, this.canvasArray)
     },
     saveRotate(rotate) {
       let index = this.rotateArray.findIndex(
@@ -79,9 +84,6 @@ export default {
       if (type === "left") this.$refs.page.rotateLeft();
       if (type === "right") this.$refs.page.rotateRight();
     },
-    handleFinishDraw(canvas) {
-      this.$emit("drawSuccess", canvas);
-    },
     cleanPrint() {
       let p = document.getElementById("printContainer");
       if (p) {
@@ -92,6 +94,7 @@ export default {
       this.$refs.page.handleZoom(value);
     },
     handleMouseDown(e) {
+      if (this.getIsDragging()) return
       this.transform = {
         clientX: e.clientX,
         clientY: e.clientY,
@@ -159,6 +162,7 @@ export default {
 .pdf-body{
   overflow: auto;
   text-align: center;
+  position: relative;
 }
 .pdf-loading{
   position: relative;
@@ -192,6 +196,11 @@ export default {
   opacity: 0.6;
   background: #000000;
   border-radius: 4px 4px 0px 0px;
+  z-index: 11;
+}
+.draw-canvas{
+  position: absolute;
+  z-index: 10;
 }
 @keyframes loading {
     0% {

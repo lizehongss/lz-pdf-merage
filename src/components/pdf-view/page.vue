@@ -55,6 +55,25 @@ export default {
             await page.render(renderContext);
             this.$emit('drawFinish', canvas);
         },
+        async drawPage(pdfPage) {
+            let page = await pdfPage
+            let canvas = document.createElement('canvas')
+            let context = canvas.getContext('2d')
+            let scale = scales[window.devicePixelRatio] || defaultScale;
+            let viewport = page.getViewport(scale, 0)
+            canvas.height = viewport.height
+            canvas.width = viewport.width
+            let renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            }
+            await page.render(renderContext)
+            return {
+                url: canvas.toDataURL('image/jpeg'),
+                width: canvas.width,
+                height: canvas.height
+            }
+        },
         rotateLeft() {
             this.rotate += -90;
             this.draw();

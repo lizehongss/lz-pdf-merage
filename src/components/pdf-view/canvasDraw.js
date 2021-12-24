@@ -58,7 +58,7 @@ export default class DrawObj {
             let clickItem = this._clickToAdd[i]
             clickItem.setPos(x - clickItem.width/2, y - clickItem.height/2)
             // 防止重叠
-            if (x + clickItem.width + 20  < this._canvas.width) {
+            if (x + clickItem.width + 20  <  parseInt(this._canvas.style.width)) {
                 x = x + clickItem.width + 20
             }
             this._drawItemList.push(clickItem)
@@ -141,6 +141,10 @@ export default class DrawObj {
         ctx.setLineDash([5,5])
         ctx.strokeRect(drawItem.x, drawItem.y,drawItem.width, drawItem.height)
     }
+    // 获取是否正在移动中
+    getIsDragging() {
+        return this._isDragging
+    }
     drawItemList(drawStroke = true) {
         // 解决闪烁问题
         let crashCanvas = document.createElement('canvas')
@@ -168,8 +172,8 @@ export default class DrawObj {
             throw('请传入图片url')
         }
         let image = await this._addImageProcess({url, width,height})
-        let x = this._randomFromTo(0, this._canvas.width)
-        let y = this._randomFromTo(0, this._canvas.height)
+        let x = this._randomFromTo(0,parseInt(this._canvas.style.width))
+        let y = this._randomFromTo(0, parseInt(this._canvas.style.height))
         let sealItem = new sealObj(x, y, image)
         if (pos === 'random') this._drawItemList.push(sealItem)
         if (pos === 'click')  this._clickToAdd.push(sealItem)
@@ -189,8 +193,8 @@ export default class DrawObj {
         if (!textObj.text) {
             throw('请输入文字')
         }
-        let x = this._randomFromTo(0, this._canvas.width)
-        let y = this._randomFromTo(0, this._canvas.height)
+        let x = this._randomFromTo(0, parseInt(this._canvas.style.width))
+        let y = this._randomFromTo(0, parseInt(this._canvas.style.height))
         this._addTextBase({ ...textObj, x,y })
         if (textObj.pos === 'random') this.drawItemList()
     }
@@ -200,11 +204,11 @@ export default class DrawObj {
             throw('请选择日期')
         }
         let dateArray = dateObj.date.split(' ')
-        let x = this._randomFromTo(0, this._canvas.width)
-        let y = this._randomFromTo(0, this._canvas.height)
+        let x = this._randomFromTo(0, parseInt(this._canvas.style.width))
+        let y = this._randomFromTo(0, parseInt(this._canvas.style.height))
         for(let i = 0; i < dateArray.length; i++) {
             let textItem = this._addTextBase({...dateObj, x, y, text: dateArray[i] })
-            if (x + textItem.width +  20 < this._canvas.width) {
+            if (x + textItem.width +  20 <  parseInt(this._canvas.style.width)) {
                 x = x + textItem.width +  20 
             }
         }
