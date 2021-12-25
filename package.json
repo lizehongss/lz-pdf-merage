@@ -1,6 +1,6 @@
 {
   "name": "lz-pdf-merage",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "vue-pdf-components",
   "main": "lib/lzPdfMerage.umd.min.js",
@@ -11,6 +11,10 @@
     "lib": "vue-cli-service build --target lib --name lzPdfMerage --dest lib index.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lizehongss/lz-pdf-merage.git"
   },
   "dependencies": {
     "core-js": "^3.6.5",
