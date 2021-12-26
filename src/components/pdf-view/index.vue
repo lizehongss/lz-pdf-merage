@@ -18,6 +18,7 @@ import Page from "./page";
 import Pdfjs from 'pdfjs-dist';
 import mixinMerage from './mixinMerage'
 import printPdf from './printPdf'
+Pdfjs.GlobalWorkerOptions.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
 export default {
   props: {
     pdfPath: {

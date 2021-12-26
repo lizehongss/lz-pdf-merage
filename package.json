@@ -1,9 +1,9 @@
 {
   "name": "lz-pdf-merage",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "description": "vue-pdf-components",
-  "main": "lib/lzPdfMerage.umd.min.js",
+  "main": "index.js",
   "keyword": "vue pdf",
   "license": "MIT",
   "scripts": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "jspdf": "^2.4.0",
-    "pdfjs-dist": "^2.1.266",
+    "pdfjs-dist": "2.1.266",
     "vue": "^2.6.11"
   },
   "devDependencies": {
